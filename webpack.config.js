@@ -350,12 +350,16 @@ module.exports = env => {
 
         {
           test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          exclude: /.worker.ts$/,
           use: [
             '@nativescript/webpack/helpers/moduleid-compat-loader',
             '@nativescript/webpack/helpers/lazy-ngmodule-hot-loader',
             '@ngtools/webpack'
           ]
         },
+
+        // Compile Worker files with ts-loader
+        { test: /\.worker.ts$/, loader: "ts-loader" },
 
         // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
         // Removing this will cause deprecation warnings to appear.
@@ -374,7 +378,7 @@ module.exports = env => {
         process: 'global.process'
       }),
       // Remove all files from the out dir.
-      new CleanWebpackPlugin({ 
+      new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: itemsToClean,
         verbose: !!verbose
       }),
@@ -385,7 +389,9 @@ module.exports = env => {
       new nsWebpack.GenerateNativeScriptEntryPointsPlugin('bundle'),
       // For instructions on how to set up workers with webpack
       // check out https://github.com/nativescript/worker-loader
-      new NativeScriptWorkerPlugin(),
+      new NativeScriptWorkerPlugin({
+        plugins: [ngCompilerPlugin],
+      }),
       ngCompilerPlugin,
       // Does IPC communication with the {N} CLI to notify events when running in watch mode.
       new nsWebpack.WatchStateLoggerPlugin()
