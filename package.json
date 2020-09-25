@@ -8,14 +8,8 @@
   "scripts": {
     "chore:pin": "npx npm-pin-dependencies",
     "make-logs-dir": "shx mkdir -p logs",
-    "prens:run:ios": "npm run make-logs-dir",
-    "ns:run:ios": "ns run ios --device \"00008030-001665EC0A98802E\" --no-hmr 2>&1 | tee logs/ios.device.log",
     "prens:run:ios:sim": "npm run make-logs-dir",
-    "ns:run:ios:sim": "ns run ios --device \"iPhone 11 Pro Max\" --no-hmr 2>&1 | tee logs/ios.sim.log",
-    "prens:run:ios:sim:trace": "npm run make-logs-dir",
-    "ns:run:ios:sim:trace": "ns run ios --device \"iPhone 11 Pro Max\" --no-hmr --env.trace 2>&1 | tee logs/ios.sim.log",
-    "prens:run:android:sim": "npm run make-logs-dir",
-    "ns:run:android:sim": "ns run android --device \"Pixel_3a_API_30\" --no-hmr 2>&1 | tee logs/android.sim.log"
+    "ns:run:ios:sim": "ns run ios --device \"iPhone 11 Pro Max\" --no-hmr 2>&1 | tee logs/ios.sim.log"
   },
   "publishConfig": {
     "access": "public"
@@ -54,6 +48,7 @@
     "@nativescript/types": "7.0.4",
     "@nativescript/webpack": "3.0.4",
     "@ngtools/webpack": "10.1.3",
+    "nativescript": "7.0.9-rc.1",
     "nativescript-worker-loader": "0.12.1",
     "shx": "0.3.2",
     "ts-loader": "8.0.4",
